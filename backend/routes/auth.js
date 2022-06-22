@@ -3,6 +3,9 @@ const router = express.Router();
 const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 const { response } = require("express");
+const bycrypt = require("bcryptjs");
+var jwt = require("jsonwebtoken");
+const jwtToken = "atharva";
 
 router.post(
 	"/createUser",
@@ -26,13 +29,22 @@ router.post(
 			if (user) {
 				return res.status(400).json({ error: "This email is already in use" });
 			}
+			//hashing password with salt
+			const salt = await bycrypt.genSalt(10);
+			const finalPassword = await bycrypt.hash(req.body.password, salt);
 			// Creates an user if same user doesn't exists
 			user = await User.create({
 				name: req.body.name,
 				email: req.body.email,
-				password: req.body.password,
+				password: finalPassword,
 			});
-			res.json(user);
+			const data = {
+				user: {
+					id: user.id,
+				},
+			};
+			const autentication_token = jwt.sign(data, jwtToken);
+			res.json({ autentication_token });
 		} catch (error) {
 			console.error(error.message);
 			req.status(500).send("Error");
