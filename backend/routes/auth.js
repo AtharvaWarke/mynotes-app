@@ -6,9 +6,9 @@ const { response } = require("express");
 const bycrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 const jwtToken = "atharva";
-const fetchuser = require("../middleware/fetchuser")
+const fetchuser = require("../middleware/fetchuser");
 
-// 1st Endpoint: Creating a user
+// 1st Endpoint: Creating a user - POST "/api/auth/createUser"
 router.post(
 	"/createUser",
 	//  Array with validators
@@ -54,7 +54,7 @@ router.post(
 	}
 );
 
-// 2nd Endpoint: Verifying login of a user
+// 2nd Endpoint: Verifying login of a user - POST "/api/auth/login"
 router.post(
 	"/login",
 	//  Array with validators
@@ -99,7 +99,7 @@ router.post(
 	}
 );
 
-// 3rd Endpoint: Geeting logged in user's detail
+// 3rd Endpoint: Geeting logged in user's detail - POST "/api/auth/getuser"
 router.post("/getuser", fetchuser, async (req, res) => {
 	try {
 		userId = req.user.id;
