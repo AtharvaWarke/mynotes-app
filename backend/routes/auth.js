@@ -6,7 +6,9 @@ const { response } = require("express");
 const bycrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 const jwtToken = "atharva";
+const fetchuser = require("../middleware/fetchuser")
 
+// 1st Endpoint: Creating a user
 router.post(
 	"/createUser",
 	//  Array with validators
@@ -47,9 +49,66 @@ router.post(
 			res.json({ autentication_token });
 		} catch (error) {
 			console.error(error.message);
-			req.status(500).send("Error");
+			res.status(500).send("Error");
 		}
 	}
 );
+
+// 2nd Endpoint: Verifying login of a user
+router.post(
+	"/login",
+	//  Array with validators
+	[
+		body("email", "Enter a valid email").isEmail(),
+		body("password", "Exter a valid password").exists(),
+	],
+	async (req, res) => {
+		// Checks for error and returns it.
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+		// Gets email, password from the req
+		const { email, password } = req.body;
+		try {
+			// Check if entered email is correct
+			let user = await User.findOne({ email });
+			if (!user) {
+				return res
+					.status(400)
+					.json({ error: "Enter a valid email or password" });
+			}
+			// Check if entered password is correct
+			const passwordCheck = await bycrypt.compare(password, user.password);
+			if (!passwordCheck) {
+				return res
+					.status(400)
+					.json({ error: "Enter a valid email or password" });
+			}
+			const data = {
+				user: {
+					id: user.id,
+				},
+			};
+			const autentication_token = jwt.sign(data, jwtToken);
+			res.json({ autentication_token });
+		} catch (error) {
+			console.error(error.message);
+			res.status(500).send("Error");
+		}
+	}
+);
+
+// 3rd Endpoint: Geeting logged in user's detail
+router.post("/getuser", fetchuser, async (req, res) => {
+	try {
+		userId = req.user.id;
+		const user = await User.findById(userId).select("-password");
+		res.send(user);
+	} catch (error) {
+		console.error(error.message);
+		res.status(500).send("Error");
+	}
+});
 
 module.exports = router;
