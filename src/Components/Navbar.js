@@ -39,15 +39,14 @@ const Navbar = () => {
 								{/* Navbar-name */}
 								<div className="flex-shrink-0 flex items-center">
 									<div className="block h-8 w-auto text-white">
-										<a href="/">
-											myNotes
-										</a>
+										<a href="/">myNotes</a>
 									</div>
 								</div>
 								<div className="hidden sm:block sm:ml-6">
 									<div className="flex space-x-4">
 										{navigation.map((item) => (
 											<Link
+												key={item.name}
 												to={item.href}
 												className={`px-3 py-2 rounded-md text-sm font-medium ${
 													location.pathname === `${item.href}`

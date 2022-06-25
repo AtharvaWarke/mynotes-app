@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
-import noteContext from "../context/notes/NoteContext";
+import React from "react";
+import Notes from "./Notes";
 
 function Home() {
-	const context = useContext(noteContext);
-	const {note, setNote} = context;
 	return (
 		<div className="flex flex-col justify-center items-center">
 			<form className="w-10/12 sm:w-8/12 md:w-[500px] lg:w-[650px] pt-3 ">
 				<h2 className="font-semibold text-4xl mb-3">Add a note</h2>
 				<div className="mb-3">
-					<label for="text" class="block mb-2 text-sm font-medium">
+					<label htmlFor="text" className="block mb-2 text-sm font-medium">
 						Your email
 					</label>
 					<input
@@ -21,7 +19,7 @@ function Home() {
 					/>
 				</div>
 				<div className="mb-6">
-					<label for="text" className="block mb-2 text-sm font-medium">
+					<label htmlFor="text" className="block mb-2 text-sm font-medium">
 						Your password
 					</label>
 					<input
@@ -39,11 +37,7 @@ function Home() {
 					Submit
 				</button>
 			</form>
-			<div>
-				{note.map((notes) => {
-					return notes.title;
-				})}
-			</div>
+			<Notes/>
 		</div>
 	);
 }
