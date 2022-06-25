@@ -1,19 +1,22 @@
 import "./App.css";
-import Navbar from "./Components/Navbar";
-import Home from "./Components/Home";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import NoteState from "./context/notes/NoteState";
+import About from "./components/About";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import About from "./Components/About";
 
 function App() {
 	return (
 		<>
-			<BrowserRouter>
-				<Navbar />
-				<Routes>
-					<Route index element={<Home />} />
-					<Route path="about" element={<About />} />
-				</Routes>
-			</BrowserRouter>
+			<NoteState>
+				<BrowserRouter>
+					<Navbar />
+					<Routes>
+						<Route index element={<Home />} />
+						<Route path="about" element={<About />} />
+					</Routes>
+				</BrowserRouter>
+			</NoteState>
 		</>
 	);
 }
