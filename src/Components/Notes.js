@@ -4,7 +4,7 @@ import IndNote from "./IndNote";
 
 function Notes() {
 	const context = useContext(noteContext);
-	const { note, setNote } = context;
+	const { note, addNote } = context;
 	return (
 		<div className="flex justify-evenly flex-wrap w-screen mt-12">
 			{note.map((notes) => {
