@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
@@ -15,9 +15,7 @@ function classNames(...classes) {
 
 const Navbar = () => {
 	let location = useLocation();
-	useEffect(() => {
-		console.log(location.pathname);
-	}, [location]);
+
 	return (
 		<Disclosure as="nav" className="bg-gray-800">
 			{({ open }) => (

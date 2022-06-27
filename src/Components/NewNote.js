@@ -6,7 +6,11 @@ function NewNote() {
 
 	const { addNote } = context;
 
-	const [note, setNote] = useState({ title: "", description: "", tag: "default" });
+	const [note, setNote] = useState({
+		title: "",
+		description: "",
+		tag: "default",
+	});
 
 	const onChange = (event) => {
 		setNote({ ...note, [event.target.name]: event.target.value });
@@ -66,7 +70,7 @@ function NewNote() {
 						addNote(note.title, note.description, note.tag);
 					}}
 				>
-					Submit
+					Add Note
 				</button>
 			</form>
 		</div>
