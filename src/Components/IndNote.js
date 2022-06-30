@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
 import { PencilAltIcon, TrashIcon } from "@heroicons/react/outline";
 import noteContext from "../context/notes/NoteContext";
+import modalContext from "../context/notes/ModalContext";
 
-function IndNote({ note }) {
+function IndNote({ note, updateNote }) {
 	const context = useContext(noteContext);
+	const context_2 = useContext(modalContext);
 
 	const { deleteNote } = context;
+	const { setOpen } = context_2;
 
 	return (
 		<div>
@@ -26,7 +29,13 @@ function IndNote({ note }) {
 					<p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
 						{note.tag}
 					</p>
-					<PencilAltIcon className="w-6 mx-4 cursor-pointer" />
+					<PencilAltIcon
+						className="w-6 mx-4 cursor-pointer"
+						onClick={() => {
+							updateNote(note);
+							setOpen(true);
+						}}
+					/>
 					<TrashIcon
 						className="w-6 mx-4 cursor-pointer"
 						onClick={() => {

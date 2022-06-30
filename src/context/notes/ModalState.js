@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import ModalContext from "./ModalContext";
+import modalContext from "./ModalContext";
 
-function ModalState(props) {
+const ModalState = (props) => {
 	const [open, setOpen] = useState(false);
 
 	return (
-		<ModalContext.Provider value={{ open, setOpen }}>
+		<modalContext.Provider value={{ open, setOpen }}>
 			{props.children}
-		</ModalContext.Provider>
+		</modalContext.Provider>
 	);
-}
+};
 
 export default ModalState;

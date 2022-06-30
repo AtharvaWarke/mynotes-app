@@ -1,11 +1,21 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useContext, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationIcon } from "@heroicons/react/outline";
+import modalContext from "../context/notes/ModalContext";
+import { useEffect } from "react";
 
-export default function Example() {
-	const [open, setOpen] = useState(true);
+export default function Modal({ currentNote, updateNote }) {
+	const context = useContext(modalContext);
+
+	const { open, setOpen } = context;
 
 	const cancelButtonRef = useRef(null);
+
+	const onChange = (event) => {
+		updateNote({
+			...currentNote,
+			[event.target.name]: event.target.value,
+		});
+	};
 
 	return (
 		<Transition.Root show={open} as={Fragment}>
@@ -41,12 +51,6 @@ export default function Example() {
 							<Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
 								<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 									<div className="sm:flex sm:items-start">
-										<div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-											<ExclamationIcon
-												className="h-6 w-6 text-red-600"
-												aria-hidden="true"
-											/>
-										</div>
 										<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
 											<Dialog.Title
 												as="h3"
@@ -54,13 +58,73 @@ export default function Example() {
 											>
 												Deactivate account
 											</Dialog.Title>
-											<div className="mt-2">
-												<p className="text-sm text-gray-500">
-													Are you sure you want to deactivate your account? All
-													of your data will be permanently removed. This action
-													cannot be undone.
-												</p>
-											</div>
+											<form className="w-10/12 sm:w-8/12 md:w-[500px] lg:w-[650px] pt-3 ">
+												<h2 className="font-semibold text-4xl mb-3">
+													Add a note
+												</h2>
+												<div className="mb-6">
+													<label
+														htmlFor="title"
+														className="block mb-2 text-sm font-medium"
+													>
+														Title
+													</label>
+													<input
+														type="text"
+														id="title"
+														name="title"
+														className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+														placeholder="Title"
+														onChange={onChange}
+														value={currentNote.title}
+													/>
+												</div>
+												<div className="mb-6">
+													<label
+														htmlFor="description"
+														className="block mb-2 text-sm font-medium"
+													>
+														Description
+													</label>
+													<input
+														type="text"
+														id="description"
+														name="description"
+														className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+														placeholder="Description"
+														onChange={onChange}
+														value={currentNote.description}
+													/>
+												</div>
+												<div className="mb-6">
+													<label
+														htmlFor="tag"
+														className="block mb-2 text-sm font-medium"
+													>
+														Tag
+													</label>
+													<input
+														type="text"
+														id="tag"
+														name="tag"
+														className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+														placeholder="Tag"
+														onChange={onChange}
+														value={currentNote.tag}
+													/>
+												</div>
+												<button
+													type="submit"
+													className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+													onClick={(event) => {
+														event.preventDefault();
+														console.log("updating note_1", currentNote);
+														// addNote(note.title, note.description, note.tag);
+													}}
+												>
+													Update Note
+												</button>
+											</form>
 										</div>
 									</div>
 								</div>
