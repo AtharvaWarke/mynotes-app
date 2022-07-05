@@ -30,16 +30,7 @@ const NoteState = (props) => {
 			},
 			body: JSON.stringify({ title, description, tag }),
 		});
-
-		const _note = {
-			_id: "62b6fa421f31cadfd36c92d12a88",
-			user: "62b343f91d5f1383a6e92a65",
-			title: title,
-			description: description,
-			tag: tag,
-			date: "2022-06-25T12:06:26.830Z",
-			__v: 0,
-		};
+		const _note = await response.json();
 		setNote(note.concat(_note));
 	};
 
@@ -52,8 +43,9 @@ const NoteState = (props) => {
 					"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJiMzQzZjkxZDVmMTM4M2E2ZTkyYTY1In0sImlhdCI6MTY1NTk3MDg3MH0.n8JEA9Yy7_pYtZj2YL0vqK0m67M0EixWjusEEwQIA6A",
 			},
 		});
+		// eslint-disable-next-line
 		const json = response.json();
-		console.log(json);
+
 		const remainingNote = note.filter((note) => {
 			return note._id !== id;
 		});
@@ -70,16 +62,21 @@ const NoteState = (props) => {
 			},
 			body: JSON.stringify({ title, description, tag }),
 		});
+		// eslint-disable-next-line
 		const json = response.json();
 
-		for (let i = 0; i < note.length; i++) {
-			const element = note[i];
+		let newNote = JSON.parse(JSON.stringify(note));
+
+		for (let i = 0; i < newNote.length; i++) {
+			const element = newNote[i];
 			if (element._id === id) {
-				element.title = title;
-				element.description = description;
-				element.tag = tag;
+				newNote[i].title = title;
+				newNote[i].description = description;
+				newNote[i].tag = tag;
+				break;
 			}
 		}
+		setNote(newNote);
 	};
 
 	return (

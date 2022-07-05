@@ -1,6 +1,6 @@
 import React from "react";
-import NewNote from "./NewNote";
-import Notes from "./Notes";
+import NewNote from "../Content/NewNote";
+import Notes from "../Content/Notes";
 
 function Home() {
 	return (

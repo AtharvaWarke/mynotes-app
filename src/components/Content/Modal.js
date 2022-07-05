@@ -1,7 +1,7 @@
-import { Fragment, useRef, useContext, useState } from "react";
+import { Fragment, useRef, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import modalContext from "../context/notes/ModalContext";
-import { useEffect } from "react";
+import modalContext from "../../context/modal/ModalContext";
+import noteContext from "../../context/notes/NoteContext";
 
 export default function Modal({ currentNote, updateNote }) {
 	const context = useContext(modalContext);
@@ -16,6 +16,10 @@ export default function Modal({ currentNote, updateNote }) {
 			[event.target.name]: event.target.value,
 		});
 	};
+
+	const context_2 = useContext(noteContext);
+
+	const { editNote } = context_2;
 
 	return (
 		<Transition.Root show={open} as={Fragment}>
@@ -117,9 +121,15 @@ export default function Modal({ currentNote, updateNote }) {
 													type="submit"
 													className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
 													onClick={(event) => {
-														event.preventDefault();
 														console.log("updating note_1", currentNote);
-														// addNote(note.title, note.description, note.tag);
+														editNote(
+															currentNote._id,
+															currentNote.title,
+															currentNote.description,
+															currentNote.tag
+														);
+														setOpen(false);
+														event.preventDefault();
 													}}
 												>
 													Update Note
@@ -129,13 +139,6 @@ export default function Modal({ currentNote, updateNote }) {
 									</div>
 								</div>
 								<div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-									<button
-										type="button"
-										className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-										onClick={() => setOpen(false)}
-									>
-										Deactivate
-									</button>
 									<button
 										type="button"
 										className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"

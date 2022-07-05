@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import noteContext from "../context/notes/NoteContext";
+import noteContext from "../../context/notes/NoteContext";
 
 function NewNote() {
 	const context = useContext(noteContext);
@@ -9,7 +9,7 @@ function NewNote() {
 	const [note, setNote] = useState({
 		title: "",
 		description: "",
-		tag: "default",
+		tag: "",
 	});
 
 	const onChange = (event) => {
@@ -31,6 +31,7 @@ function NewNote() {
 						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						placeholder="Title"
 						onChange={onChange}
+						value={note.title}
 					/>
 				</div>
 				<div className="mb-6">
@@ -47,6 +48,7 @@ function NewNote() {
 						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						placeholder="Description"
 						onChange={onChange}
+						value={note.description}
 					/>
 				</div>
 				<div className="mb-6">
@@ -60,6 +62,7 @@ function NewNote() {
 						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						placeholder="Tag"
 						onChange={onChange}
+						value={note.tag}
 					/>
 				</div>
 				<button
@@ -68,6 +71,11 @@ function NewNote() {
 					onClick={(event) => {
 						event.preventDefault();
 						addNote(note.title, note.description, note.tag);
+						setNote({
+							title: "",
+							description: "",
+							tag: "",
+						});
 					}}
 				>
 					Add Note

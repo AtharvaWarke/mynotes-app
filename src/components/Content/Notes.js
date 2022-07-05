@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import noteContext from "../context/notes/NoteContext";
+import noteContext from "../../context/notes/NoteContext";
 import IndNote from "./IndNote";
 import Modal from "./Modal";
 

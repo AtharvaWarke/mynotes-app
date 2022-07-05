@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { PencilAltIcon, TrashIcon } from "@heroicons/react/outline";
-import noteContext from "../context/notes/NoteContext";
-import modalContext from "../context/notes/ModalContext";
+import noteContext from "../../context/notes/NoteContext";
+import modalContext from "../../context/modal/ModalContext";
 
 function IndNote({ note, updateNote }) {
 	const context = useContext(noteContext);
