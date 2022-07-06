@@ -20,16 +20,19 @@ router.post(
 		}),
 	],
 	async (req, res) => {
+		let success = false;
 		// Checks for error and returns it.
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.status(400).json({ errors: errors.array() });
+			return res.status(400).json({ success, errors: errors.array() });
 		}
 		try {
 			// Checks if user with same email already exists.
 			let user = await User.findOne({ email: req.body.email });
 			if (user) {
-				return res.status(400).json({ error: "This email is already in use" });
+				return res
+					.status(400)
+					.json({ success, error: "This email is already in use" });
 			}
 			//hashing password with salt
 			const salt = await bycrypt.genSalt(10);
@@ -46,10 +49,11 @@ router.post(
 				},
 			};
 			const autentication_token = jwt.sign(data, jwtToken);
-			res.json({ autentication_token });
+			success = true;
+			res.json({ success, autentication_token });
 		} catch (error) {
 			console.error(error.message);
-			res.status(500).send("Error");
+			res.status(500).send(success, "Server Error");
 		}
 	}
 );
@@ -63,10 +67,11 @@ router.post(
 		body("password", "Exter a valid password").exists(),
 	],
 	async (req, res) => {
+		let success = false;
 		// Checks for error and returns it.
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.status(400).json({ errors: errors.array() });
+			return res.status(400).json({ success, errors: errors.array() });
 		}
 		// Gets email, password from the req
 		const { email, password } = req.body;
@@ -76,14 +81,14 @@ router.post(
 			if (!user) {
 				return res
 					.status(400)
-					.json({ error: "Enter a valid email or password" });
+					.json({ success, error: "Enter a valid email or password" });
 			}
 			// Check if entered password is correct
 			const passwordCheck = await bycrypt.compare(password, user.password);
 			if (!passwordCheck) {
 				return res
 					.status(400)
-					.json({ error: "Enter a valid email or password" });
+					.json({ success, error: "Enter a valid email or password" });
 			}
 			const data = {
 				user: {
@@ -91,23 +96,26 @@ router.post(
 				},
 			};
 			const autentication_token = jwt.sign(data, jwtToken);
-			res.json({ autentication_token });
+			success = true;
+			res.json({ success, autentication_token });
 		} catch (error) {
 			console.error(error.message);
-			res.status(500).send("Error");
+			res.status(500).send("Server Error");
 		}
 	}
 );
 
 // 3rd Endpoint: Geeting logged in user's detail - POST "/api/auth/getuser"
 router.post("/getuser", fetchuser, async (req, res) => {
+	let success = false;
 	try {
 		userId = req.user.id;
 		const user = await User.findById(userId).select("-password");
-		res.send(user);
+		success = true;
+		res.send(success, user);
 	} catch (error) {
 		console.error(error.message);
-		res.status(500).send("Error");
+		res.status(500).send(success, "Server Error");
 	}
 });
 

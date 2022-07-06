@@ -103,28 +103,28 @@ const Navbar = () => {
 											</Menu.Item>
 											<Menu.Item>
 												{({ active }) => (
-													<a
-														href="/"
+													<Link
+														to="/Login"
 														className={classNames(
 															active ? "bg-gray-100" : "",
 															"block px-4 py-2 text-sm text-gray-700"
 														)}
 													>
-														Settings
-													</a>
+														Login
+													</Link>
 												)}
 											</Menu.Item>
 											<Menu.Item>
 												{({ active }) => (
-													<a
-														href="/"
+													<Link
+														to="/Signup"
 														className={classNames(
 															active ? "bg-gray-100" : "",
 															"block px-4 py-2 text-sm text-gray-700"
 														)}
 													>
 														Sign out
-													</a>
+													</Link>
 												)}
 											</Menu.Item>
 										</Menu.Items>
