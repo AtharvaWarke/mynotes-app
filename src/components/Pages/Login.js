@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import alertContext from "../../context/alert/AlertContext";
 
 function Login() {
-    let navigate = useNavigate();
+	const context = useContext(alertContext);
+	const { showAlert } = context;
+
+	let navigate = useNavigate();
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
@@ -15,13 +20,13 @@ function Login() {
 		});
 		const json = await response.json();
 		console.log(json);
-        if(json.success){
-            localStorage.setItem('auth-token', json.autentication_token);
-            navigate("/")
-        }
-        else{
-
-        }
+		if (json.success) {
+			localStorage.setItem("auth-token", json.autentication_token);
+			showAlert("Logged in", true);
+			navigate("/");
+		} else {
+			showAlert("Incorrect username or password.", false);
+		}
 	};
 
 	const [creds, setCreds] = useState({
