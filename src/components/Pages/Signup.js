@@ -1,22 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+	let navigate = useNavigate();
+
+	const handleLogin = async (event) => {
+		event.preventDefault();
+		const response = await fetch("http://localhost:4000/api/auth/createUser", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				name: creds.name,
+				email: creds.email,
+				password: creds.password,
+			}),
+		});
+		const json = await response.json();
+		console.log(json);
+		if (json.success) {
+			localStorage.setItem("auth-token", json.autentication_token);
+			navigate("/");
+		} else {
+		}
+	};
+
+	const [creds, setCreds] = useState({
+		name: "",
+		email: "",
+		password: "",
+		cnfrmPassword: "",
+	});
+
+	const onChange = (event) => {
+		setCreds({ ...creds, [event.target.name]: event.target.value });
+	};
+
 	return (
 		<div className="flex justify-center items-center pt-40">
 			<div className="w-full max-w-xs">
-				<form className="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4">
+				<form
+					className="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4"
+					onSubmit={handleLogin}
+				>
 					<div className="mb-6">
 						<label
 							className="block text-gray-700 text-sm font-bold mb-2"
-							htmlFor="username"
+							htmlFor="name"
 						>
-							Username
+							Your Name
 						</label>
 						<input
 							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							id="username"
-							type="text"
-							placeholder="Username"
+							id="name"
+							type="name"
+							name="name"
+							placeholder="Your Name"
+							onChange={onChange}
+						/>
+					</div>
+					<div className="mb-6">
+						<label
+							className="block text-gray-700 text-sm font-bold mb-2"
+							htmlFor="email"
+						>
+							Email
+						</label>
+						<input
+							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							id="email"
+							type="email"
+							name="email"
+							placeholder="Email"
+							onChange={onChange}
 						/>
 					</div>
 					<div className="mb-2">
@@ -30,27 +87,31 @@ function Signup() {
 							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 							id="password"
 							type="password"
+							name="password"
 							placeholder="******************"
+							onChange={onChange}
 						/>
 					</div>
 					<div className="mb-6">
 						<label
 							className="block text-gray-700 text-sm font-bold mb-2"
-							htmlFor="password"
+							htmlFor="cnfrmPassword"
 						>
 							Confirmed Password
 						</label>
 						<input
 							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							id="password"
+							id="cnfrmPassword"
 							type="password"
+							name="cnfrmPassword"
 							placeholder="******************"
+							onChange={onChange}
 						/>
 					</div>
 					<div className="flex items-center justify-between">
 						<button
 							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-							type="button"
+							type="submit"
 						>
 							Sign Up
 						</button>
