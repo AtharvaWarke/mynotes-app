@@ -2,7 +2,7 @@ import React from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navigation = [
 	{ name: "Home", href: "/", current: true },
@@ -15,6 +15,13 @@ function classNames(...classes) {
 
 const Navbar = () => {
 	let location = useLocation();
+
+	let navigate = useNavigate();
+
+	const handleSignOut = () => {
+		localStorage.removeItem("auth-token");
+		navigate("/Login");
+	};
 
 	return (
 		<Disclosure as="nav" className="bg-gray-800">
@@ -101,19 +108,35 @@ const Navbar = () => {
 													</a>
 												)}
 											</Menu.Item>
-											<Menu.Item>
-												{({ active }) => (
-													<Link
-														to="/Login"
-														className={classNames(
-															active ? "bg-gray-100" : "",
-															"block px-4 py-2 text-sm text-gray-700"
-														)}
-													>
-														Login
-													</Link>
-												)}
-											</Menu.Item>
+											{localStorage.getItem("auth-token") ? (
+												<Menu.Item>
+													{({ active }) => (
+														<a
+															className={classNames(
+																active ? "bg-gray-100" : "",
+																"block px-4 py-2 text-sm text-gray-700"
+															)}
+															onClick={handleSignOut}
+														>
+															Sign out
+														</a>
+													)}
+												</Menu.Item>
+											) : (
+												<Menu.Item>
+													{({ active }) => (
+														<Link
+															to="/Login"
+															className={classNames(
+																active ? "bg-gray-100" : "",
+																"block px-4 py-2 text-sm text-gray-700"
+															)}
+														>
+															Log in
+														</Link>
+													)}
+												</Menu.Item>
+											)}
 											<Menu.Item>
 												{({ active }) => (
 													<Link
@@ -123,7 +146,7 @@ const Navbar = () => {
 															"block px-4 py-2 text-sm text-gray-700"
 														)}
 													>
-														Sign out
+														Sign up
 													</Link>
 												)}
 											</Menu.Item>

@@ -4,25 +4,36 @@ import { useNavigate } from "react-router-dom";
 function Signup() {
 	let navigate = useNavigate();
 
+	const [passcheck, setPasscheck] = useState(true);
+
 	const handleLogin = async (event) => {
 		event.preventDefault();
-		const response = await fetch("http://localhost:4000/api/auth/createUser", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				name: creds.name,
-				email: creds.email,
-				password: creds.password,
-			}),
-		});
-		const json = await response.json();
-		console.log(json);
-		if (json.success) {
-			localStorage.setItem("auth-token", json.autentication_token);
-			navigate("/");
+		if (creds.password === creds.cnfrmPassword) {
+			setPasscheck(true);
+			const response = await fetch(
+				"http://localhost:4000/api/auth/createUser",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						name: creds.name,
+						email: creds.email,
+						password: creds.password,
+					}),
+				}
+			);
+			const json = await response.json();
+			console.log(json);
+			if (json.success) {
+				localStorage.setItem("auth-token", json.autentication_token);
+				navigate("/");
+			} else {
+			}
 		} else {
+			setPasscheck(false);
+			console.log("incorrect");
 		}
 	};
 
@@ -90,7 +101,15 @@ function Signup() {
 							name="password"
 							placeholder="******************"
 							onChange={onChange}
+							autoComplete="new-password"
 						/>
+						{!passcheck ? (
+							<p className="text-xs mt-1 text-red-600 font-light">
+								Password doesn't match!
+							</p>
+						) : (
+							<p></p>
+						)}
 					</div>
 					<div className="mb-6">
 						<label
@@ -106,6 +125,7 @@ function Signup() {
 							name="cnfrmPassword"
 							placeholder="******************"
 							onChange={onChange}
+							autoComplete="new-password"
 						/>
 					</div>
 					<div className="flex items-center justify-between">

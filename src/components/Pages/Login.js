@@ -22,6 +22,7 @@ function Login() {
 		console.log(json);
 		if (json.success) {
 			localStorage.setItem("auth-token", json.autentication_token);
+			console.log("item", localStorage.getItem("auth-token"));
 			showAlert("Logged in", true);
 			navigate("/");
 		} else {
@@ -91,6 +92,18 @@ function Login() {
 							href="#"
 						>
 							Forgot Password?
+						</a>
+					</div>
+
+					<div className="flex pt-4">
+						<p className="font-llight text-sm" href="#">
+							Don't have an account?
+						</p>
+						<a
+							className="font-semibold text-sm text-blue-500 hover:text-blue-800 ml-1"
+							href="/Signup"
+						>
+							Sign up
 						</a>
 					</div>
 				</form>

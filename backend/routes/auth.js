@@ -107,15 +107,13 @@ router.post(
 
 // 3rd Endpoint: Geeting logged in user's detail - POST "/api/auth/getuser"
 router.post("/getuser", fetchuser, async (req, res) => {
-	let success = false;
 	try {
 		userId = req.user.id;
 		const user = await User.findById(userId).select("-password");
-		success = true;
-		res.send(success, user);
+		res.send(user);
 	} catch (error) {
 		console.error(error.message);
-		res.status(500).send(success, "Server Error");
+		res.status(500).send("Server Error");
 	}
 });
 
