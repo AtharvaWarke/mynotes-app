@@ -4,7 +4,7 @@ import Notes from "../Content/Notes";
 
 function Home() {
 	return (
-		<div className="flex flex-col justify-center items-center">
+		<div className="flex flex-col md:items-center">
 			<NewNote />
 			<Notes />
 		</div>

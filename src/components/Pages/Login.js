@@ -88,8 +88,8 @@ function Login() {
 							Sign In
 						</button>
 						<a
-							className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-							href="#"
+							className="inline-block align-baseline font-light text-sm text-blue-500 hover:text-blue-800"
+							href="/"
 						>
 							Forgot Password?
 						</a>
@@ -100,7 +100,7 @@ function Login() {
 							Don't have an account?
 						</p>
 						<a
-							className="font-semibold text-sm text-blue-500 hover:text-blue-800 ml-1"
+							className="font-light text-sm text-blue-500 hover:text-blue-800 ml-1"
 							href="/Signup"
 						>
 							Sign up

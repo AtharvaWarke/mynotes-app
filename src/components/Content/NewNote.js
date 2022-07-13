@@ -17,9 +17,11 @@ function NewNote() {
 	};
 
 	return (
-		<div>
-			<form className="w-10/12 sm:w-8/12 md:w-[500px] lg:w-[650px] pt-3 ">
-				<h2 className="font-semibold text-4xl mb-3">Add a note</h2>
+		<div className="py-2 px-2 w-auto ">
+			<form className="bg-white shadow-lg rounded-lg md:w-[61vw] lg:w-[650px] px-14 pt-4 pb-8 border-2 border-gray-100">
+				<div className="flex justify-center">
+					<h2 className="font-semibold text-4xl mb-3">Add a note</h2>
+				</div>
 				<div className="mb-6">
 					<label htmlFor="title" className="block mb-2 text-sm font-medium">
 						Title
@@ -65,21 +67,23 @@ function NewNote() {
 						value={note.tag}
 					/>
 				</div>
-				<button
-					type="submit"
-					className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-					onClick={(event) => {
-						event.preventDefault();
-						addNote(note.title, note.description, note.tag);
-						setNote({
-							title: "",
-							description: "",
-							tag: "",
-						});
-					}}
-				>
-					Add Note
-				</button>
+				<div className="flex justify-center">
+					<button
+						type="submit"
+						className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center lg:w-2/5"
+						onClick={(event) => {
+							event.preventDefault();
+							addNote(note.title, note.description, note.tag);
+							setNote({
+								title: "",
+								description: "",
+								tag: "",
+							});
+						}}
+					>
+						Add Note
+					</button>
+				</div>
 			</form>
 		</div>
 	);

@@ -7,6 +7,7 @@ import { useContext } from "react";
 
 function Alert() {
 	const context = useContext(alertContext);
+	// setAlert takes in message, success, show
 	const { alert, setAlert } = context;
 	return (
 		<div

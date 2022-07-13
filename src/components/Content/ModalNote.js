@@ -1,12 +1,12 @@
 import { Fragment, useRef, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import modalContext from "../../context/modal/ModalContext";
+import modalNoteContext from "../../context/modal/ModalNoteContext";
 import noteContext from "../../context/notes/NoteContext";
 
-export default function Modal({ currentNote, updateNote }) {
-	const context = useContext(modalContext);
+function ModalNote({ currentNote, updateNote }) {
+	const context = useContext(modalNoteContext);
 
-	const { open, setOpen } = context;
+	const { open_2, setOpen_2 } = context;
 
 	const cancelButtonRef = useRef(null);
 
@@ -22,12 +22,12 @@ export default function Modal({ currentNote, updateNote }) {
 	const { editNote } = context_2;
 
 	return (
-		<Transition.Root show={open} as={Fragment}>
+		<Transition.Root show={open_2} as={Fragment}>
 			<Dialog
 				as="div"
 				className="relative z-10"
 				initialFocus={cancelButtonRef}
-				onClose={setOpen}
+				onClose={setOpen_2}
 			>
 				<Transition.Child
 					as={Fragment}
@@ -118,7 +118,7 @@ export default function Modal({ currentNote, updateNote }) {
 													currentNote.description,
 													currentNote.tag
 												);
-												setOpen(false);
+												setOpen_2(false);
 												event.preventDefault();
 											}}
 										>
@@ -130,7 +130,7 @@ export default function Modal({ currentNote, updateNote }) {
 									<button
 										type="button"
 										className="mt-2 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-										onClick={() => setOpen(false)}
+										onClick={() => setOpen_2(false)}
 										ref={cancelButtonRef}
 									>
 										Cancel
@@ -144,3 +144,5 @@ export default function Modal({ currentNote, updateNote }) {
 		</Transition.Root>
 	);
 }
+
+export default ModalNote;

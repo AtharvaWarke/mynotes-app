@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
@@ -47,6 +47,11 @@ function Signup() {
 	const onChange = (event) => {
 		setCreds({ ...creds, [event.target.name]: event.target.value });
 	};
+
+	useEffect(() => {
+		localStorage.removeItem('auth-token')
+	}, [])
+	
 
 	return (
 		<div className="flex justify-center items-center pt-40">
@@ -135,6 +140,17 @@ function Signup() {
 						>
 							Sign Up
 						</button>
+					</div>
+					<div className="flex pt-4">
+						<p className="font-llight text-sm" href="#">
+							Already have an account?
+						</p>
+						<a
+							className="font-semibold text-sm text-blue-500 hover:text-blue-800 ml-1"
+							href="/Login"
+						>
+							Log in
+						</a>
 					</div>
 				</form>
 				<p className="text-center text-gray-500 text-xs">

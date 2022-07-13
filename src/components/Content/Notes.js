@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import noteContext from "../../context/notes/NoteContext";
 import IndNote from "./IndNote";
 import Modal from "./Modal";
+import ModalNote from "./ModalNote";
 
 function Notes() {
 	const context = useContext(noteContext);
@@ -14,9 +15,8 @@ function Notes() {
 	useEffect(() => {
 		if (localStorage.getItem("auth-token")) {
 			getNote();
-		}
-		else{
-			navigate("/Login")
+		} else {
+			navigate("/Login");
 		}
 		// eslint-disable-next-line
 	}, []);
@@ -34,7 +34,8 @@ function Notes() {
 	return (
 		<>
 			<Modal currentNote={indNote} updateNote={setIndNote} />
-			<div className="flex justify-evenly flex-wrap w-screen mt-12">
+			<ModalNote currentNote={indNote} updateNote={setIndNote}/>
+			<div className="flex justify-evenly flex-wrap w-screen py-4 ">
 				{note.map((notes) => {
 					return (
 						<IndNote key={notes._id} updateNote={updateNote} note={notes} />
