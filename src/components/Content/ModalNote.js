@@ -1,25 +1,25 @@
 import { Fragment, useRef, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import modalNoteContext from "../../context/modal/ModalNoteContext";
-import noteContext from "../../context/notes/NoteContext";
+// import noteContext from "../../context/notes/NoteContext";
 
-function ModalNote({ currentNote, updateNote }) {
+export default function Modal({ note }) {
 	const context = useContext(modalNoteContext);
 
 	const { open_2, setOpen_2 } = context;
 
 	const cancelButtonRef = useRef(null);
 
-	const onChange = (event) => {
-		updateNote({
-			...currentNote,
-			[event.target.name]: event.target.value,
-		});
-	};
+	// const onChange = (event) => {
+	// 	updateNote({
+	// 		...currentNote,
+	// 		[event.target.name]: event.target.value,
+	// 	});
+	// };
 
-	const context_2 = useContext(noteContext);
+	// const context_2 = useContext(noteContext);
 
-	const { editNote } = context_2;
+	// const { editNote } = context_2;
 
 	return (
 		<Transition.Root show={open_2} as={Fragment}>
@@ -38,11 +38,11 @@ function ModalNote({ currentNote, updateNote }) {
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0"
 				>
-					<div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+					<div className="fixed inset-0 bg-gray-500 bg-opacity-10 transition-opacity" />
 				</Transition.Child>
 
 				<div className="fixed z-10 inset-0 overflow-y-auto">
-					<div className="flex items-center justify-center min-h-full p-4 text-center sm:p-0">
+					<div className="flex items-center justify-center min-h-full p-4 text-center">
 						<Transition.Child
 							as={Fragment}
 							enter="ease-out duration-300"
@@ -53,78 +53,35 @@ function ModalNote({ currentNote, updateNote }) {
 							leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
 						>
 							<Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-screen md:max-w-xl">
-								<div className="bg-white px-8 pt-5 pb-2 sm:p-6 sm:pb-4">
-									<form className="w-full pt-3 ">
-										<h2 className="font-semibold text-4xl mb-3">Add a note</h2>
-										<div className="mb-6">
-											<label
-												htmlFor="title"
-												className="block mb-2 text-sm font-medium"
-											>
-												Title
-											</label>
-											<input
-												type="text"
-												id="title"
-												name="title"
-												className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-												placeholder="Title"
-												onChange={onChange}
-												value={currentNote.title}
-											/>
+								<div className="bg-white">
+									<div className="rounded-lg overflow-hidden shadow-lg border-2 border-gray-100 bg-white">
+										<div className="px-6 py-4">
+											<div className="font-bold text-xl mb-2">{note.title}</div>
+											<div className="overflow-y-scroll max-h-72">
+												<p className="text-gray-700 text-base">
+													{note.description}
+												</p>
+											</div>
 										</div>
-										<div className="mb-6">
-											<label
-												htmlFor="description"
-												className="block mb-2 text-sm font-medium"
-											>
-												Description
-											</label>
-											<input
-												type="text"
-												id="description"
-												name="description"
-												className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-												placeholder="Description"
-												onChange={onChange}
-												value={currentNote.description}
+										<div className="px-6 pt-4 pb-2 mb-3 flex">
+											<p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+												{note.tag}
+											</p>
+											{/* <PencilAltIcon
+												className="w-6 mx-4 cursor-pointer"
+												onClick={() => {
+													updateNote(note);
+													setOpen_2(true);
+												}}
 											/>
+											<TrashIcon
+												className="w-6 mx-4 cursor-pointer"
+												onClick={() => {
+													deleteNote(note._id);
+												}}
+											/> */}
 										</div>
-										<div className="mb-6">
-											<label
-												htmlFor="tag"
-												className="block mb-2 text-sm font-medium"
-											>
-												Tag
-											</label>
-											<input
-												type="text"
-												id="tag"
-												name="tag"
-												className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-												placeholder="Tag"
-												onChange={onChange}
-												value={currentNote.tag}
-											/>
-										</div>
-										<button
-											type="submit"
-											className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-											onClick={(event) => {
-												console.log("updating note_1", currentNote);
-												editNote(
-													currentNote._id,
-													currentNote.title,
-													currentNote.description,
-													currentNote.tag
-												);
-												setOpen_2(false);
-												event.preventDefault();
-											}}
-										>
-											Update Note
-										</button>
-									</form>
+									</div>
 								</div>
 								<div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
 									<button
@@ -144,5 +101,3 @@ function ModalNote({ currentNote, updateNote }) {
 		</Transition.Root>
 	);
 }
-
-export default ModalNote;

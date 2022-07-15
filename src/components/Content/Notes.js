@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import noteContext from "../../context/notes/NoteContext";
 import IndNote from "./IndNote";
 import Modal from "./Modal";
-import ModalNote from "./ModalNote";
 
 function Notes() {
 	const context = useContext(noteContext);
@@ -34,8 +33,7 @@ function Notes() {
 	return (
 		<>
 			<Modal currentNote={indNote} updateNote={setIndNote} />
-			<ModalNote currentNote={indNote} updateNote={setIndNote}/>
-			<div className="flex justify-evenly flex-wrap w-screen py-4 ">
+			<div className="flex justify-center flex-wrap w-screen py-4 px-2">
 				{note.map((notes) => {
 					return (
 						<IndNote key={notes._id} updateNote={updateNote} note={notes} />

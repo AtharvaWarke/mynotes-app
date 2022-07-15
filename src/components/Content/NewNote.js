@@ -1,10 +1,13 @@
 import React, { useContext, useState } from "react";
+import alertContext from "../../context/alert/AlertContext";
 import noteContext from "../../context/notes/NoteContext";
 
 function NewNote() {
 	const context = useContext(noteContext);
+	const context_2 = useContext(alertContext)
 
 	const { addNote } = context;
+	const { showAlert } = context_2;
 
 	const [note, setNote] = useState({
 		title: "",
@@ -17,7 +20,7 @@ function NewNote() {
 	};
 
 	return (
-		<div className="py-2 px-2 w-auto ">
+		<div className="py-2 px-2 w-full md:w-auto lg:pt-4">
 			<form className="bg-white shadow-lg rounded-lg md:w-[61vw] lg:w-[650px] px-14 pt-4 pb-8 border-2 border-gray-100">
 				<div className="flex justify-center">
 					<h2 className="font-semibold text-4xl mb-3">Add a note</h2>
@@ -79,6 +82,7 @@ function NewNote() {
 								description: "",
 								tag: "",
 							});
+							showAlert("New note has been added", true)
 						}}
 					>
 						Add Note

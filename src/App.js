@@ -13,28 +13,30 @@ import Alert from "./components/Content/Alert";
 
 function App() {
 	return (
-		<>
-			<div className="bg-gray-50 h-screen">
-				<NoteState>
-					<ModalState>
-						<AlertState>
-							<ModalNoteState>
-								<BrowserRouter>
+		<div className="bg-slate-100">
+			<NoteState>
+				<ModalState>
+					<AlertState>
+						<ModalNoteState>
+							<BrowserRouter>
+								<div>
 									<Navbar />
+								</div>
+								<div>
 									<Alert />
-									<Routes>
-										<Route index element={<Home />} />
-										<Route path="about" element={<About />} />
-										<Route path="login" element={<Login />} />
-										<Route path="signup" element={<Signup />} />
-									</Routes>
-								</BrowserRouter>
-							</ModalNoteState>
-						</AlertState>
-					</ModalState>
-				</NoteState>
-			</div>
-		</>
+								</div>
+								<Routes>
+									<Route index element={<Home />} />
+									<Route path="about" element={<About />} />
+									<Route path="login" element={<Login />} />
+									<Route path="signup" element={<Signup />} />
+								</Routes>
+							</BrowserRouter>
+						</ModalNoteState>
+					</AlertState>
+				</ModalState>
+			</NoteState>
+		</div>
 	);
 }
 
