@@ -49,12 +49,11 @@ function Signup() {
 	};
 
 	useEffect(() => {
-		localStorage.removeItem('auth-token')
-	}, [])
-	
+		localStorage.removeItem("auth-token");
+	}, []);
 
 	return (
-		<div className="flex justify-center items-center pt-40">
+		<div className="flex justify-center items-center h-screen">
 			<div className="w-full max-w-xs">
 				<form
 					className="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4"
@@ -146,7 +145,7 @@ function Signup() {
 							Already have an account?
 						</p>
 						<a
-							className="font-semibold text-sm text-blue-500 hover:text-blue-800 ml-1"
+							className="font-light text-sm text-blue-500 hover:text-blue-800 ml-1"
 							href="/Login"
 						>
 							Log in

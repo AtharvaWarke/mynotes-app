@@ -13,18 +13,14 @@ import Alert from "./components/Content/Alert";
 
 function App() {
 	return (
-		<div className="bg-slate-100">
+		<div className="bg-neutral-50">
 			<NoteState>
 				<ModalState>
 					<AlertState>
 						<ModalNoteState>
 							<BrowserRouter>
-								<div>
 									<Navbar />
-								</div>
-								<div>
 									<Alert />
-								</div>
 								<Routes>
 									<Route index element={<Home />} />
 									<Route path="about" element={<About />} />
