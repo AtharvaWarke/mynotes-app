@@ -24,7 +24,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<Disclosure as="nav" className="bg-gray-800 fixed w-full">
+		<Disclosure as="nav" className="bg-gray-800 fixed w-full top-0">
 			{({ open }) => (
 				<>
 					<div className="max-w-full mx-auto px-2 sm:px-7 lg:px-5">
