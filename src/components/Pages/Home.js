@@ -5,7 +5,7 @@ import ScrollToTop from "../Content/ScrollToTop";
 
 function Home() {
 	return (
-		<div className="flex flex-col items-center">
+		<div className="flex flex-col items-center mt-14">
 			<NewNote />
 			<Notes />
 			<ScrollToTop />

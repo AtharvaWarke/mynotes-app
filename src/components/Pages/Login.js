@@ -40,7 +40,7 @@ function Login() {
 	};
 
 	return (
-		<div className="flex justify-center items-center pt-40 h-full">
+		<div className="flex justify-center items-center h-screen">
 			<div className="w-full max-w-xs">
 				<form
 					className="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4"

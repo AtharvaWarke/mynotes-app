@@ -11,7 +11,7 @@ function Alert() {
 	const { alert, setAlert } = context;
 	return (
 		<div
-			className={`${alert.show ? "" : "hidden"} fixed w-full`}
+			className={`${alert.show ? "" : "hidden"} fixed w-full top-14`}
 			role="alert"
 		>
 			<div
