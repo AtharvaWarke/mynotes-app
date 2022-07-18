@@ -11,7 +11,7 @@ function Login() {
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
-		const response = await fetch("http://localhost:4000/api/auth/login", {
+		const response = await fetch("https://mynotes-mern-app.herokuapp.com/api/auth/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
