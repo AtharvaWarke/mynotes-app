@@ -13,7 +13,7 @@ import Alert from "./components/Content/Alert";
 
 function App() {
 	return (
-		<div className="bg-neutral-50">
+		<div className="bg-neutral-50 h-screen">
 			<NoteState>
 				<ModalState>
 					<AlertState>
